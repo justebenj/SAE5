@@ -18,6 +18,11 @@
         <section>
             <h1>Titre TesT</h1>
             <section id="form">
+                <fieldset id="recherche">
+                    <legend>Ecrivez le nom de votre film :</legend>
+                    <input type="text" id="search" placeholder="Le nom du film ...">
+                    <button id="sendsearch">chercher</button>
+                </fieldset>
                 <section >
                     <article>
                         <p>Avez-vous envie de rire ?</p>
@@ -57,17 +62,18 @@
                 <article>
                     <label for="ranking-select">Choisissez comment trier :</label>
                     <select name="rank" id="ranking">
-                        <option value="popularity.asc">popularité croissante</option>
                         <option value="popularity.desc">popularité décroissante</option>
-                        <option value="primary_release_date.asc">Première parution croissante</option>
+                        <option value="popularity.asc">popularité croissante</option>
                         <option value="primary_release_date.desc">Première parution décroissante</option>
-                        <option value="title.asc">titre croissant</option>
+                        <option value="primary_release_date.asc">Première parution croissante</option>
                         <option value="title.desc">titre décroissant</option>
+                        <option value="title.asc">titre croissant</option>
                     </select>
                 </article>
                 <article>
-                    <label for="language-select">Choisissez une langue :</label>
+                    <label for="language-select">Choisissez un pays :</label>
                     <select name="language" id="langue">
+                        <option value="undefined">Tout les pays</option>
                         <option value="fr">Français</option>
                         <option value="en">Anglais</option>
                         <option value="de">Allemand</option>

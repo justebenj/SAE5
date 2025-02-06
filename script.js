@@ -13,10 +13,10 @@ const adults = getAdultFilter();
 function choixgenre() {
     let categorie = [35, 28, 18, 27];
     let emotionsvalues = [humour.value, action.value, triste.value, peur.value];
-    let max1 = 0;
-    let max1i = 0;
-    let max2 = 0;
-    let max2i = 0;
+    let max1 = 1;
+    let max1i = 1;
+    let max2 = 1;
+    let max2i = 1;
     for (let i = 0; i < emotionsvalues.length; i++) {
         if (emotionsvalues[i] > max1) {
             max2 = max1;
@@ -29,13 +29,26 @@ function choixgenre() {
             max2i = i;
         }
     }
-    genre = categorie[max1i];
-    genre2 = categorie[max2i];
-    const ranking = document.getElementById("ranking");
-    const language = document.getElementById("langue");
-    console.log(genre);   // Affiche la valeur de genre
+
+    if (max1 != 1) {genre = categorie[max1i]}
+    if (max2 != 1) {genre2 = categorie[max2i]} else{genre2 = categorie[max1i]}
+    const ranking = document.getElementById("ranking").value;
+    const language = document.getElementById("langue").value;
+
+    if (language == 'undefined') {
+        apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genre},${genre2}&include_adult=${adults}&sort_by=${ranking}`;
+    }
+    else{
+        apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genre},${genre2}&include_adult=${adults}&sort_by=${ranking}&with_original_language=${language}`;
+    }
+
+    console.log(genre);
     console.log(genre2);
-    apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genre},${genre2}&include_adult=${adults}&sort_by=${ranking.value}&with_original_language=${langue.value}`;
+}
+
+function chercherFilm() {
+    const recherche = search.value;
+    apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${recherche}`
 }
 
 let apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genre},${genre2}&include_adult=${adults}&sort_by=${ranking.value}&with_original_language=${langue.value}`;
@@ -68,12 +81,18 @@ function recupereInfoFilms (media) {
 
     movieCard.innerHTML = `
     <img src="https://image.tmdb.org/t/p/w500/${backdrop_path}" onerror="this.src='Img/notfound.jpg';this.id='errorimg';" class="movie_img">
-    <div class="title">${original_title || name}, sortie en : ${release_date}</div>
+    <div class="title">${original_title || name}, sorti en : ${release_date}</div>
     <p>Description : ${overview} </p>
     `;
     return movieCard;
 }
 
+
+sendsearch.onclick = () => {
+    chercherFilm();
+    recupereFilms();
+    document.getElementById("form").remove();
+}
 
 send.onclick = () => {
     choixgenre();
