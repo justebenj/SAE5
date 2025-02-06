@@ -1,0 +1,23 @@
+body{
+    background-color: white;
+}
+
+.genre {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 200px;
+}
+
+#ranking {
+    font-size: 0.9rem;
+    padding: 2px 0.7vw;
+    margin: 2px;
+    border-radius: 20px;
+}
+
+#errorimg {
+    width: 200px;
+    height: auto;
+}

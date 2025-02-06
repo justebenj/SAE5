@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>  
+</head>
+
+<body>
+    <header>
+
+    </header>
+
+    <main>
+        <section>
+            <h1>Titre TesT</h1>
+            <section id="form">
+                <section >
+                    <article>
+                        <p>Avez-vous envie de rire ?</p>
+                        <input type="range" id="humour" min="1" max="10" class="genre">
+                    </article>
+                    <article>
+                        <p>Avez-vous envie d'action ?</p>
+                        <input type="range" id="action" min="1" max="10" class="genre">
+                    </article>
+                    <article>
+                        <p>Avez-vous envie d'etre triste ?</p>
+                        <input type="range" id="triste" min="1" max="10" class="genre">
+                    </article>
+                    <article>
+                        <p>Avez-vous envie d'avoir peur ?</p>
+                        <input type="range" id="peur" min="1" max="10" class="genre">
+                    </article>
+                </section>
+                <article>
+                    <fieldset>
+                        <legend>Voulez-vous activer une limite d'age ?</legend>
+                        <input type="radio" id="pegi100" name="pegi" checked>
+                        <legend>aucun</legend>
+                        <input type="radio" id="pegi12" name="pegi">
+                        <legend>PEGI 12</legend>
+                        <input type="radio" id="pegi16" name="pegi">
+                        <legend>PEGI 16</legend>
+                        <input type="radio" id="pegi18" name="pegi">
+                        <legend>PEGI 18</legend>
+                    </fieldset>
+                    
+                </article>
+                <article>
+                    <p>Voulez-vous inclure les films pour adultes ?</p>
+                    <input type="checkbox" id="adult_movies">
+                </article>
+                <article>
+                    <label for="ranking-select">Choisissez comment trier :</label>
+                    <select name="rank" id="ranking">
+                        <option value="popularity.asc">popularité croissante</option>
+                        <option value="popularity.desc">popularité décroissante</option>
+                        <option value="primary_release_date.asc">Première parution croissante</option>
+                        <option value="primary_release_date.desc">Première parution décroissante</option>
+                        <option value="title.asc">titre croissant</option>
+                        <option value="title.desc">titre décroissant</option>
+                    </select>
+                </article>
+                <article>
+                    <label for="language-select">Choisissez une langue :</label>
+                    <select name="language" id="langue">
+                        <option value="fr">Français</option>
+                        <option value="en">Anglais</option>
+                        <option value="de">Allemand</option>
+                        <option value="es">Espagnol</option>
+                        <option value="it">Italien</option>
+                    </select>
+                </article>
+                <article>
+                    <button id="send">Obtenir une recommandation !</button>
+                </article>
+            </section>
+            
+        </section>
+        <div id="movies"></div>
+    </main>
+
+    <footer>
+
+    </footer>
+</body>
+
+</html>
