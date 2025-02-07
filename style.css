@@ -1,5 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
 body{
-    background-color: white;
+    background-color: #000000;
+    color: white;
+}
+
+
+header{
+    background-color: #000000;
+    padding-left: 5vh;
+    padding-right: 5vh;
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    display: flex;
+    justify-content: space-around;
+}
+
+header a{
+    color: white;
+    text-decoration: none;
+    padding: 1vh;
+    padding-right: 2vw;
+    padding-left: 2vw;
+}
+
+header a:hover{
+    background-color: rgb(103, 8, 167);
+    transition: background-color 1s;
+    border-radius: 0.8vh;
+    transition-timing-function: ease-out;
 }
 
 .genre {

@@ -36,10 +36,10 @@ function choixgenre() {
     const language = document.getElementById("langue").value;
 
     if (language == 'undefined') {
-        apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genre},${genre2}&include_adult=${adults}&sort_by=${ranking}`;
+        apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genre},${genre2}&include_adult=${adults}&sort_by=${ranking}&vote_count.gte=300`;
     }
     else{
-        apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genre},${genre2}&include_adult=${adults}&sort_by=${ranking}&with_original_language=${language}`;
+        apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genre},${genre2}&include_adult=${adults}&sort_by=${ranking}&vote_count.gte=300&with_original_language=${language}`;
     }
 
     console.log(genre);
@@ -74,18 +74,21 @@ async function recupereFilms() {
 function recupereInfoFilms (media) {
 
     
-    const { original_title, name, backdrop_path, release_date, overview } = media;
+    const { original_title, name, backdrop_path, release_date, overview, id } = media;
 
     const movieCard = document.createElement("div");
     movieCard.classList.add("movie_item")
 
     movieCard.innerHTML = `
+    <a href="movie.html?id=${id}" id="${id}" class="link">
     <img src="https://image.tmdb.org/t/p/w500/${backdrop_path}" onerror="this.src='Img/notfound.jpg';this.id='errorimg';" class="movie_img">
+    </a>
     <div class="title">${original_title || name}, sorti en : ${release_date}</div>
     <p>Description : ${overview} </p>
     `;
     return movieCard;
 }
+
 
 
 sendsearch.onclick = () => {
