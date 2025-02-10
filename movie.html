@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="stylemovie.css">
-    <script src="moviescript.js" defer></script>  
+    <script src="moviescript.js" defer></script> 
+    <link rel="icon" type="image/x-icon" href="Img/logotemp.png">
 </head>
 
 <body>
@@ -17,14 +18,24 @@
     <main>
         <section>
             <h1>Titre TesT</h1>
-            
-            
         </section>
         <div id="movies"></div>
         <section id="image-carousel">
             <ul id="splide-list"></ul>
         </section>
-        <section id="movieContainer"></section>
+        <section id="movieContainer">
+        </section>
+        <section id="collection"></section>
+        <section id="moredetails">
+            <button class="details" id="+details">Afficher plus de détails</button>
+            <button class="details" id="-details" hidden="true">Cacher les détails</button>
+            <article id="placedetails"></article>
+        </section>
+        <section id="similarMovies">
+            <button id="+similar" class="similar">Afficher des films similaires</button>
+            <button id="-similar" class="similar" hidden="true">Cacher les films similaires</button>
+        </section>
+        
     </main>
 
     <footer>
