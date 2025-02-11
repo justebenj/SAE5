@@ -18,6 +18,7 @@ const movieId=getId();
 let apiUrl2 = `https://api.themoviedb.org/3/movie/${movieId}/images?api_key=${apiKey}&language=fr-FR&include_image_language=fr,null`;
 let apiUrl3 = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=fr`;
 let apiUrl4 = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=fr-FR`;
+let IdCollection;
 
 const moviesContainer = document.getElementById("movies");
 
@@ -87,7 +88,6 @@ function recupereBanniereFilmsListe (media, i) {
 
 async function recupereDetails(){
 
-    
     const response = await fetch(apiUrl3);
     const data = await response.json();
 
@@ -107,8 +107,10 @@ async function recupereDetails(){
 
     document.getElementById("movieContainer").appendChild(movieCard);
     if (data.belongs_to_collection) {
-        let apiUrl = `https://api.themoviedb.org/3/collection/${data.belongs_to_collection.id}?api_key${apiKey}&language=fr`; 
-        collectionFilm(data.belongs_to_collection.id);
+        IdCollection = (data.belongs_to_collection.id);
+    }
+    else{
+        document.getElementById("collection.show").hidden = true;
     }
     return movieCard;
 }
@@ -151,19 +153,39 @@ async function collectionFilm(collection_id){
     });
 }
 
+function minEnHeure(m){
+    let res = [Math.floor(m/60),m%60];
+    return res;
+}
+
 async function plusDetails(){
     const response = await fetch(apiUrl4);
     const data = await response.json();
+
+    const genreHTML = document.createElement("p");
+    genreHTML.classList.add("movie_item");
+    genreHTML.innerHTML = `Genres de ${data.title} :`
+    placedetails.appendChild(genreHTML);
 
     data.genres.forEach(element => {
         const movieDetails = creationHTMLDetails(element);
         placedetails.appendChild(movieDetails);
     });
+
+    const moredetails = document.createElement("article");
+    moredetails.classList.add("movie_item");
+    moredetails.innerHTML = `
+    <p> Durée du film : ${minEnHeure(data.runtime)[0]}h${minEnHeure(data.runtime)[1]}</p>
+    <p> Votes moyens du film : ${data.vote_average}</p>
+    <p> Budget du film : ${data.budget} $</p>
+    <p> Recette : ${data.revenue} $</p>
+    `
+    placedetails.appendChild(moredetails);
 }
 
 function creationHTMLDetails(element) {
     const movieDetails = document.createElement("div");
-    movieDetails.classList.add("movie_item")
+    movieDetails.classList.add("movie_item");
 
     movieDetails.innerHTML = `
     <article>
@@ -224,11 +246,11 @@ document.body.addEventListener("click", (event) =>{
 let clicke2 = false;
 document.body.addEventListener("click", (event) =>{
     if (event.target.matches(".similar")){
-        if (clicke == false) {
+        if (clicke2 == false) {
             document.getElementById("+similar").hidden = true;
             document.getElementById("-similar").hidden = false;
             recupereSimilar();
-            clicke = true;
+            clicke2 = true;
         } else {
             document.getElementById("-similar").hidden = true;
             document.getElementById("+similar").hidden = false;
@@ -236,11 +258,30 @@ document.body.addEventListener("click", (event) =>{
             while (elements[0]){
                 elements[0].parentNode.removeChild(elements[0]);
             }
-            clicke = false;
+            clicke2 = false;
         }  
     }
 })
 
+let clicke3 = false;
+document.body.addEventListener("click", (event) =>{
+    if (event.target.matches(".collsh")){
+        if (clicke3 == false) {
+            document.getElementById("collection.show").hidden = true;
+            document.getElementById("collection.hide").hidden = false;
+            collectionFilm(IdCollection);
+            clicke3 = true;
+        } else {
+            document.getElementById("collection.hide").hidden = true;
+            document.getElementById("collection.show").hidden = false;
+            var elements = document.getElementsByClassName("collectionCard");
+            while (elements[0]){
+                elements[0].parentNode.removeChild(elements[0]);
+            }
+            clicke3 = false;
+        }  
+    }
+})
 
 recupereDetails();
 recupereBanniere();
