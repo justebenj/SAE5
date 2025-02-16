@@ -12,9 +12,9 @@
     <main>
         <section></section>
         <section>
-            <header>
+            <header id="info">
                 <h1>Connexion</h1>
-                <p>Connectez-vous pour acceder a toutes les fonctionnalitees.</p>
+                <p>Connectez-vous pour acceder à toutes les fonctionnalitées.</p>
             </header>
             <form id="login">
                 <fieldset>
@@ -27,9 +27,15 @@
                 </fieldset>
                 <article>
                     <input type="checkbox" id="stayconnected">
-                    <span>Rester connecte</span>
+                    <span>Rester connecté</span>
+                </article id="submitArticle">
+                <button type="submit" id="sendformL">Se connecter</button>
+                <button type="submit" id="sendformS">S'identifier</button>
+                <article id="changeLogin">
+                    <button type="button" id="toSignup" class="change">Vous n'avez pas de compte ?</button>
+                    <button type="button" id="toLogin" class="change">Vous avez déjà un compte ?</button>
                 </article>
-                <button type="submit" id="sendform">Se connecter</button>
+                
             </form>
         </section>
     </main>

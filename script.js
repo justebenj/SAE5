@@ -89,7 +89,34 @@ function recupereInfoFilms (media) {
     return movieCard;
 }
 
+document.getElementById("joy").addEventListener("input", function() {
+    console.log((11-this.value));
+    if (this.value <= 11) {
+        document.documentElement.style.setProperty("--tailleGauche", `calc( 25% + calc(11%-${this.value}%))`)
+    } else {
+        document.documentElement.style.setProperty("--tailleGauche", `calc( 25% - ${this.value}%)`)
+    }
+    
+})
 
+document.querySelector(".slider").addEventListener("input", function() {
+    
+    if (this.value <= 11) {
+        console.log((11 - this.value));
+        document.documentElement.style.setProperty("--tailleBot", `calc(35% - ${11 - this.value}%)`);
+        document.documentElement.style.setProperty("--tailleTop", `calc(35% + ${11 - this.value}%)`);
+    } else {
+        console.log(-(11 - this.value));
+        document.documentElement.style.setProperty("--tailleTop", `calc(35% - ${-(11 - this.value)}%)`);
+        document.documentElement.style.setProperty("--tailleBot", `calc(35% + ${-(11 - this.value)}%)`);
+    }
+    
+})
+
+
+startanimation.onclick = () => {
+    document.querySelector("#wrap1").classList.add("rotateClass");
+}
 
 sendsearch.onclick = () => {
     chercherFilm();

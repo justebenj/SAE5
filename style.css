@@ -4,6 +4,26 @@
     border: 0;
 }
 
+@font-face {
+    font-family: Modinova;
+    src: url(fonts/ModinovaSemiBold-AR5jp.ttf);
+}
+
+@font-face {
+    font-family: roboto;
+    src: url(fonts/static/Roboto-Black.ttf);
+}
+
+
+.roboto {
+    font-family: "Roboto", serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+  }
+
 body{
     background-color: #000000;
     color: white;
@@ -35,22 +55,116 @@ header a:hover{
     transition-timing-function: ease-out;
 }
 
-.genre {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 200px;
-}
 
-#ranking {
-    font-size: 0.9rem;
-    padding: 2px 0.7vw;
-    margin: 2px;
-    border-radius: 20px;
-}
 
 #errorimg {
     width: 200px;
     height: auto;
+}
+
+main > section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#testwrap{
+    border-radius: 4vh;
+    width: 40vw;
+    height: 80vh;
+    background-color: purple;
+    margin-bottom: 10vh;
+    display: flex;
+    flex-flow: wrap column;
+    align-items: center;
+}
+
+#testwrap h1{
+    margin: 3vh;
+    font-family: roboto;
+    font-size: 2rem;
+}
+
+#testwrap article{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    margin: auto;
+    align-items: center;
+}
+
+.imgTop{
+    width: var(--tailleTop);
+}
+
+.imgBot{
+    width: var(--tailleBot);
+}
+
+:root {
+    --tailleTop: 35%;
+    --tailleBot: 35%;
+}
+
+#wrap1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: purple;
+    height: fit-content;
+    border-radius: 5vh;
+    padding-bottom: 10vh;
+    flex-wrap: wrap;
+}
+
+
+#content{
+    width: 100%;
+    text-align: center;
+}
+
+
+#content > h1{
+    display: inline-block;
+    padding: 2vh 2vh;
+    font-size: 2rem;
+    font-family:roboto;
+}
+
+#elements{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgboxL{
+    width: var(--tailleGauche);
+}
+
+.imgboxR {
+    width: 25%;
+}   
+
+.slider {
+    cursor: pointer;
+    height: 15vw;
+    align-items: center;
+    writing-mode: vertical-lr;
+}
+
+
+.rotateClass{
+    animation: rotate ease-in 1s;
+}
+
+@keyframes rotate {
+    0%{
+        transform: rotateY(0deg);
+    }
+    50%{
+        transform: rotateY(90deg);
+    }
+    100%{
+        transform: rotateY(0deg);
+    }
 }
