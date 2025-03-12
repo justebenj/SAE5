@@ -68,6 +68,62 @@ main > section{
     justify-content: center;
 }
 
+main div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+main div div{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: blueviolet;
+    width: 30%;
+    border-radius: 0.5vw;
+    margin: 4vh 1vh 3vh 4vh;
+}
+
+.permahover{
+    z-index: 1;
+    background-color: gray;
+    flex-grow: 1;
+}
+
+
+
+.permahover p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 10;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.movie_item:not(.permahover) {
+    opacity: 0.5;
+    transition: opacity 0.3s ease-in-out;
+}
+
+main div div p{
+    display: none;
+    flex-wrap: wrap;
+}
+
+main div div img{
+    border-radius: 0.2vh;
+}
+
+main div div h1{
+    text-align: center;
+    font-size: 1.5rem;
+}
+
 #testwrap{
     border-radius: 4vh;
     width: 40vw;

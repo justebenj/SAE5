@@ -80,11 +80,12 @@ function recupereInfoFilms (media) {
     movieCard.classList.add("movie_item")
 
     movieCard.innerHTML = `
+    <h1 class="title">${original_title || name}</h1>
     <a href="movie.html?id=${id}" id="${id}" class="link">
     <img src="https://image.tmdb.org/t/p/w500/${backdrop_path}" onerror="this.src='Img/notfound.jpg';this.id='errorimg';" class="movie_img">
     </a>
-    <div class="title">${original_title || name}, sorti en : ${release_date}</div>
     <p>Description : ${overview} </p>
+    <p> Date de parution : ${release_date}</p>
     `;
     return movieCard;
 }
@@ -114,6 +115,7 @@ document.querySelector(".slider").addEventListener("input", function() {
 })
 
 
+
 startanimation.onclick = () => {
     document.querySelector("#wrap1").classList.add("rotateClass");
 }
@@ -122,12 +124,30 @@ sendsearch.onclick = () => {
     chercherFilm();
     recupereFilms();
     document.getElementById("form").remove();
+    document.querySelector("#testwrap").remove();
 }
+
+movies.addEventListener('mouseover', (event) => {
+    const movieItem = event.target.closest('.movie_item');  
+    if (movieItem) {
+        movieItem.classList.add('permahover');
+    }
+});
+
+movies.addEventListener('mouseout', (event) =>{
+    const movieItem = event.target.closest('.movie_item');  
+    if (movieItem){
+        movieItem.classList.remove('permahover');
+    }
+})
+
+
 
 send.onclick = () => {
     choixgenre();
     recupereFilms();
     document.getElementById("form").remove();
+    document.querySelector("#testwrap").remove();
     console.log(apiUrl); 
 }
    
