@@ -1,6 +1,192 @@
+@font-face {
+    font-family: 'RotundaBold';
+    src: url('fonts/Demo_Fonts/Fontspring-DEMO-6a-rotunda-bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Generis';
+    src: url('fonts/GenerisSansMedium/Generis\ Sans\ W04\ Medium.woff');
+}
+
 *{
     margin: 0;
     padding: 0;
     border: 0;
 }
 
+header {
+    background-color: rgba(20, 10, 5);
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header h1 {
+    font-family: 'RotundaBold';
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+header a {
+    text-decoration: none;  /* Enlève le souligné par défaut */
+    border: none;
+    font-family: 'RotundaBold';
+    color: white;
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+main {
+    position: relative;
+    font-family: 'Generis';
+}
+
+#BG {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    z-index: 1;
+
+    background-image: linear-gradient(
+    to right,
+    rgba(20, 10, 5, 1) 0%,       
+    rgba(25, 10, 5, 0.98)40%,   
+    rgba(30, 15, 10, 0.95) 45%,
+    rgba(40, 20, 10, 0.9) 50%,
+    rgba(50, 25, 15, 0.7) 60%, 
+    rgba(60, 30, 20, 0.5) 70%,
+    rgba(60, 30, 20, 0.2) 85%,
+    rgba(60, 30, 20, 0) 100%
+    );
+    justify-content: left;
+}
+
+.movie_img {
+    position: absolute;
+    height: 40vh;
+    z-index: 99;
+}
+
+#imageBackground {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 66.66%;
+    object-fit: cover;
+    object-position: top right;
+    z-index: 0;
+    filter: contrast(1.05) brightness(0.95); /* Ajuste légèrement le contraste et la luminosité pour une meilleure fusion */
+}
+
+#movies {
+    position: relative;
+    height: 50vh;
+    overflow: hidden;
+}
+
+#infoSup{
+    margin-left: 15%;
+    position: absolute;
+    top: 5vh;
+    display: flex;
+}
+
+#infoSup article {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 40vh;
+}
+
+#infoSup article h2 {
+    font-size: 1.15rem;
+    font-weight: lighter;
+}
+
+
+article h4 {
+    max-width: 50%;
+    line-height: 2.5vh;
+    font-weight: lighter;
+}
+
+article h5 {
+    font-weight: lighter;
+    font-size: 1rem;
+}
+
+
+#sLigne {
+    display: block;
+    font-weight: bold;
+}
+
+.movie_img {
+    order: 1;
+}
+
+.infos {
+    position: relative;
+    left: 32vh;
+    color: aliceblue;
+    order: 2;
+}
+
+.infos h1 {
+    font-size: 2rem;
+}
+
+#bold {
+    font-family: "RotundaBold",Arial,sans-serif;
+    font-weight: bold;
+}
+
+#cast {
+    margin-top: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+#cast article {
+    border-radius: 1vh;
+    width: 10%;
+    height: auto;
+    border: 1px solid gray;
+}
+
+#cast article img {
+    border-top-right-radius: 1vh;
+    border-top-left-radius: 1vh;
+    width: 100%;
+    height: auto;
+    
+}
+
+#cast article h1 {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+#cast article h2 {
+    flex-wrap: wrap;
+    font-weight: normal;
+    font-size: 1.2rem;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    margin-bottom: 2vh;
+}
+
+#castSec h1 {
+    justify-content: start;
+    margin-top: 2%;
+    margin-left: 5%;
+}

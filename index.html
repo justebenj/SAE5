@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -14,108 +13,61 @@
 
 <body>
     <header>
-        Logo
-        <button id="startanimation">Lancer animation</button>
-        <a href="login.html?id=login">Se connecter</a>
-        <a href="login.html?id=signup">S'inscrire</a>
+        <h1>CineMood</h1>
+        <button id="startanimation" onclick="toggleTheme()">dark theme</button>
+        <a href="index.html">Films</a>
     </header>
 
     <main>
-        <article>
-            <fieldset id="recherche">
-                    <legend>Ecrivez le nom de votre film :</legend>
-                    <input type="text" id="search" placeholder="Le nom du film ...">
+        <section id="welcome">
+            <div id="banner"></div>
+            <article>
+                <h1>Bienvenue sur CineMood</h1>
+                <h2>La plateforme ideale pour trouver un film en fonction de son humeur !</h2>
+                <div class="wrapper">
+                    <input type="text" id="search" placeholder="Cherchez un film, une serie ...">
                     <button id="sendsearch">chercher</button>
-            </fieldset>
-        </article>
-        <section>
-
-            <section id="testwrap">
-                <h1>Etes-vous de bonne humeur ?</h1>
-                <article>
-                    <img src="Img/happy.png" alt="happy" class="imgTop">
-                    <input type="range" class="slider" min="1" max="21">
-                    <img src="Img/sad.png" alt="sad" class="imgBot">
-                </article>
-            </section>
-            
-            <section id="form">
-                <article id="wrap1">
-                    <section id="content">
-                        <h1>Etes-vous de bonne humeur ?</h1>
-                        <article id="elements">
-                            <img src="Img/happy.png" alt="happy" class="imgboxL">
-                            <input type="range" id="joy" min="1" max="21" class="genre">
-                            <img src="Img/sad.png" alt="sad" class="imgboxR">
-                        </article>
-                    </section>
-                </article>
-
-
-
-
-
-
-                <article id="wrap2" hidden="true">
-                    <h1>Titre TesT</h1>
-                    <section >
-                        <article>
-                            <p>Avez-vous envie de rire ?</p>
-                            <input type="range" id="humour" min="1" max="10" class="genre">
-                        </article>
-                        <article>
-                            <p>Avez-vous envie d'action ?</p>
-                            <input type="range" id="action" min="1" max="10" class="genre">
-                        </article>
-                        <article>
-                            <p>Avez-vous envie d'etre triste ?</p>
-                            <input type="range" id="triste" min="1" max="10" class="genre">
-                        </article>
-                        <article>
-                            <p>Avez-vous envie d'avoir peur ?</p>
-                            <input type="range" id="peur" min="1" max="10" class="genre">
-                        </article>
-                    </section>
-                    <article>
-                        <p>Voulez-vous inclure les films pour adultes ?</p>
-                        <input type="checkbox" id="adult_movies">
-                    </article>
-                    <article>
-                        <label for="ranking-select">Choisissez comment trier :</label>
-                        <select name="rank" id="ranking">
-                            <option value="popularity.desc">popularité décroissante</option>
-                            <option value="popularity.asc">popularité croissante</option>
-                            <option value="vote_average.desc">par note moyenne décroissante</option>
-                            <option value="vote_average.asc">par note moyenne croissante</option>
-                            <option value="primary_release_date.desc">Première parution décroissante</option>
-                            <option value="primary_release_date.asc">Première parution croissante</option>
-                            <option value="title.desc">titre décroissant</option>
-                            <option value="title.asc">titre croissant</option>
-                        </select>
-                    </article>
-                    <article>
-                        <label for="language-select">Choisissez un pays :</label>
-                        <select name="language" id="langue">
-                            <option value="undefined">Tout les pays</option>
-                            <option value="fr">Français</option>
-                            <option value="en">Anglais</option>
-                            <option value="de">Allemand</option>
-                            <option value="es">Espagnol</option>
-                            <option value="it">Italien</option>
-                        </select>
-                    </article>
-                    <article>
-                        <button id="send">Obtenir une recommandation !</button>
-                    </article>
-                </article>
-            </section>
+                </div>
+            </article>
         </section>
+        <section id="pureWrap">
+            <h1>Trouve <span id="bold">LE</span> film pour toi</h1>
+            <h2 id="titleWrap">Comment te sens-tu ? </h2>
+            <input type="range" name="happyRange" min="0" max="20" value="10" id="caca">
+            <select name="rank" id="ranking" hidden>
+                <option value="popularity.desc">popularité décroissante</option>
+                <option value="popularity.asc">popularité croissante</option>
+                <option value="vote_average.desc">par note moyenne décroissante</option>
+                <option value="vote_average.asc">par note moyenne croissante</option>
+                <option value="primary_release_date.desc">Première parution décroissante</option>
+                <option value="primary_release_date.asc">Première parution croissante</option>
+                <option value="title.desc">titre décroissant</option>
+                <option value="title.asc">titre croissant</option>
+            </select>
+            <select name="language" id="langue" hidden>
+                <option value="undefined">Tout les pays</option>
+                <option value="fr">Français</option>
+                <option value="en">Anglais</option>
+                <option value="de">Allemand</option>
+                <option value="es">Espagnol</option>
+                <option value="it">Italien</option>
+            </select>
+            <button id="sendAnswer" onclick="sendAnswer()"> Suivant</button>
+        </section>
+        <section id="popular">
+            <div id="background">
+                <h1>Films Populaires  en ce moment</h1>
+                <section id='movPop'></section>
+            </div>
+        </section>
+
         <div id="movies"></div>
     </main>
 
     <footer>
 
     </footer>
+    <script src="script.js" defer></script> 
 </body>
 
 </html>

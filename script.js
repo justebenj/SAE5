@@ -1,62 +1,22 @@
 const apiKey = 'd2ce126fbc7fe822d2ea9332ea12a63a';
 let genre;
 let genre2;
+let repAct = 0;
+const catFilms = [12,28,53,27,10749,18,99,35,35,53];
 
-function getAdultFilter() {
-    const checkboxadults = document.getElementById("adult_movies");
-    return checkboxadults.checked;
-}
+let popAct = 0;
 
+tabLeft = ['Img/smileEmoji.png','Img/energyEmoji.png','Img/complexEmoji.png','Img/tensionEmoji.png','Img/romanceEmoji.png'];
+tabRight = ['Img/sadEmoji.png','Img/calmEmoji.png','Img/simpleEmoji.png','Img/chillEmoji.png','Img/notRomanceEmoji.png'];
+tabLib = ['Comment te sens-tu?', 'Comment est ton energie ?', 'Est-tu fatigue intelectuellement ?', 'Est-tu tendu ?', 'Est-tu dans un mood romantique ?', 'Quelques parametres supplementaires :'];
 
-const adults = getAdultFilter();
+let currentTheme = sessionStorage.getItem('theme');
+document.documentElement.setAttribute('data-theme', currentTheme === 'light' ? 'dark' : 'light');
 
-function choixgenre() {
-    let categorie = [35, 28, 18, 27];
-    let emotionsvalues = [humour.value, action.value, triste.value, peur.value];
-    let max1 = 1;
-    let max1i = 1;
-    let max2 = 1;
-    let max2i = 1;
-    for (let i = 0; i < emotionsvalues.length; i++) {
-        if (emotionsvalues[i] > max1) {
-            max2 = max1;
-            max2i = max1i;
-            max1 = emotionsvalues[i];
-            max1i = i;
-        }
-        else if(emotionsvalues[i] > max2) {
-            max2 = emotionsvalues[i];
-            max2i = i;
-        }
-    }
-
-    if (max1 != 1) {genre = categorie[max1i]}
-    if (max2 != 1) {genre2 = categorie[max2i]} else{genre2 = categorie[max1i]}
-    const ranking = document.getElementById("ranking").value;
-    const language = document.getElementById("langue").value;
-
-    if (language == 'undefined') {
-        apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genre},${genre2}&include_adult=${adults}&sort_by=${ranking}&vote_count.gte=300`;
-    }
-    else{
-        apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genre},${genre2}&include_adult=${adults}&sort_by=${ranking}&vote_count.gte=300&with_original_language=${language}`;
-    }
-
-    console.log(genre);
-    console.log(genre2);
-}
-
-function chercherFilm() {
-    const recherche = search.value;
-    apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${recherche}`
-}
-
-let apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genre},${genre2}&include_adult=${adults}&sort_by=${ranking.value}&with_original_language=${langue.value}`;
 const moviesContainer = document.getElementById("movies");
 
 
-
-async function recupereFilms() {
+async function recupereFilms(apiUrl) {
     
     try {
         const response = await fetch(apiUrl);
@@ -82,49 +42,48 @@ function recupereInfoFilms (media) {
     movieCard.innerHTML = `
     <h1 class="title">${original_title || name}</h1>
     <a href="movie.html?id=${id}" id="${id}" class="link">
-    <img src="https://image.tmdb.org/t/p/w500/${backdrop_path}" onerror="this.src='Img/notfound.jpg';this.id='errorimg';" class="movie_img">
+    <img src="https://image.tmdb.org/t/p/w780/${backdrop_path}" onerror="this.src='Img/notfound.jpg';this.id='errorimg';" class="movie_img">
     </a>
-    <p>Description : ${overview} </p>
-    <p> Date de parution : ${release_date}</p>
+    <p hidden=true>Description : ${overview} </p>
+    <blockquote> Date de parution : ${release_date}</p>
     `;
     return movieCard;
 }
 
-document.getElementById("joy").addEventListener("input", function() {
-    console.log((11-this.value));
-    if (this.value <= 11) {
-        document.documentElement.style.setProperty("--tailleGauche", `calc( 25% + calc(11%-${this.value}%))`)
+
+let slider = document.querySelector('#caca');
+
+slider.addEventListener("input", function() {
+    let newSize;
+    const distanceFromCenter = Math.abs(this.value - 10);
+    if (this.value <= 10) {
+        slider.classList.remove('sad');
+        document.documentElement.style.setProperty('--img-range', `url(${tabLeft[repAct]})`);
     } else {
-        document.documentElement.style.setProperty("--tailleGauche", `calc( 25% - ${this.value}%)`)
+        slider.classList.add('sad');
+        document.documentElement.style.setProperty('--img-range', `url(${tabRight[repAct]})`);
     }
-    
+    newSize = 35 + ((distanceFromCenter / 10) * (20)/1.5);
+    changeThumbSize(newSize);
 })
 
-document.querySelector(".slider").addEventListener("input", function() {
-    
-    if (this.value <= 11) {
-        console.log((11 - this.value));
-        document.documentElement.style.setProperty("--tailleBot", `calc(35% - ${11 - this.value}%)`);
-        document.documentElement.style.setProperty("--tailleTop", `calc(35% + ${11 - this.value}%)`);
-    } else {
-        console.log(-(11 - this.value));
-        document.documentElement.style.setProperty("--tailleTop", `calc(35% - ${-(11 - this.value)}%)`);
-        document.documentElement.style.setProperty("--tailleBot", `calc(35% + ${-(11 - this.value)}%)`);
-    }
-    
-})
-
-
-
-startanimation.onclick = () => {
-    document.querySelector("#wrap1").classList.add("rotateClass");
+function changeThumbSize(size) {
+    slider.style.setProperty('--thumb-size', size + 'px');
 }
 
+
 sendsearch.onclick = () => {
-    chercherFilm();
-    recupereFilms();
-    document.getElementById("form").remove();
-    document.querySelector("#testwrap").remove();
+    const recherche = document.querySelector('#search').value;
+    const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${recherche}`;
+    let items = document.querySelectorAll('.movie_item')
+    if (items){
+        items.forEach(element => element.remove());
+    }
+    let wrap = document.querySelector("#pureWrap");
+    if (wrap) {document.querySelector("#pureWrap").remove()};
+    let poster = document.querySelector("#popular");
+    if (poster) {document.querySelector("#popular").remove()};
+    recupereFilms(apiUrl);
 }
 
 movies.addEventListener('mouseover', (event) => {
@@ -142,12 +101,161 @@ movies.addEventListener('mouseout', (event) =>{
 })
 
 
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+        }
+        else{
+            entry.target.classList.remove("visible");
+        }
+    });
+}, { 
+    root:null,
+    threshold: 0.1 
+});
 
-send.onclick = () => {
-    choixgenre();
-    recupereFilms();
-    document.getElementById("form").remove();
-    document.querySelector("#testwrap").remove();
-    console.log(apiUrl); 
+const observeNewElements = () => {
+    document.querySelectorAll(".movie_item").forEach(box => observer.observe(box));
+};
+
+// Observer les éléments déjà présents
+observeNewElements();
+
+// Observer les nouveaux éléments après un chargement dynamique
+const mutationObserver = new MutationObserver(observeNewElements);
+mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+
+let tabAnswer = [];
+
+function sendAnswer(){
+    const range = document.querySelector('#caca');
+    const title = document.querySelector('#titleWrap');
+    const button = document.querySelector('#sendAnswer');
+    if (repAct == 4) {
+        tabAnswer[repAct] = range.value;
+        range.remove();
+        button.innerHTML = 'Afficher les films !'
+        document.querySelector('#ranking').removeAttribute("hidden");
+        document.querySelector('#langue').removeAttribute("hidden");
+    }
+    if (repAct == 5) {
+        let indices = get2Max(tabAnswer);
+        let genres = [];
+        indices.forEach(valeur =>{
+            let val = valeur > 0 ? valeur + 5 : -valeur;
+            genres.push(catFilms[val]);
+        });
+        const ranking = document.getElementById("ranking").value;
+        const language = document.getElementById("langue").value; 
+        const apiUrl = language == "undefined" ? 
+        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genres[0]},${genres[1]}&sort_by=${ranking}&vote_count.gte=300` : 
+        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genres[0]},${genres[1]}&sort_by=${ranking}&vote_count.gte=300&with_original_language=${language}`;
+        recupereFilms(apiUrl);
+        document.querySelector('#pureWrap').remove();
+        document.querySelector('#popular').remove();
+    }
+    else {
+        tabAnswer[repAct] = range.value;
+        range.value = 10;
+        title.innerHTML = `${tabLib[repAct+1]}`;
+        document.documentElement.style.setProperty('--img-range', `url(${tabLeft[repAct+1]})`);
+    }
+    repAct++;
+    
 }
-   
+
+function get2Max(tabAnswer) {
+    let max1 = { diff: -1, index: -1, sign: 1 };
+    let max2 = { diff: -1, index: -1, sign: 1 };
+
+    tabAnswer.forEach((val, i) => {
+        const num = parseInt(val);
+        const diff = Math.abs(num - 10);
+        const sign = num < 10 ? -1 : 1;
+
+        if (diff > max1.diff) {
+            max2 = { ...max1 }; 
+            max1 = { diff, index: i, sign };
+        } else if (diff > max2.diff) {
+            max2 = { diff, index: i, sign };
+        }
+    });
+
+    const result = [
+        max1.sign < 0 ? -max1.index : max1.index,
+        max2.sign < 0 ? -max2.index : max2.index
+    ];
+    return result;
+}
+let postersPop = [];
+let isPos = 0;
+let pos0,pos1,po2,pos3;
+async function getPopular(){
+    const answer = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`);
+    const data = await answer.json();
+    const listPop = data.results.slice(0,4);
+    listPop.forEach((element,index) => {
+        const article = document.createElement('article');
+        let date = element.release_date;
+        date = date.replace(/-/g, "/");
+        article.innerHTML = `
+        <img class="pos${index}" src="https://image.tmdb.org/t/p/w780/${element.poster_path}">
+        <h1>${element.title}</h1>
+        <h2>${date}</h2>
+        `;
+        document.querySelector('#movPop').appendChild(article);
+        postersPop.push("https://image.tmdb.org/t/p/original/" + element.backdrop_path);
+    });
+    isPos = 1;
+    console.log(postersPop);
+    document.documentElement.style.setProperty('--banner-url2', `url(${postersPop[0]})`);
+    pos0 = document.querySelector('#pos0');
+}
+
+document.body.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('pos0')) {
+        document.documentElement.style.setProperty('--banner-url2', `url(${postersPop[0]})`);
+    }
+});
+document.body.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('pos1')) {
+        document.documentElement.style.setProperty('--banner-url2', `url(${postersPop[1]})`);
+    }
+});
+
+document.body.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('pos2')) {
+        document.documentElement.style.setProperty('--banner-url2', `url(${postersPop[2]})`);
+    }
+});
+
+document.body.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('pos3')) {
+        document.documentElement.style.setProperty('--banner-url2', `url(${postersPop[3]})`);
+    }
+});
+
+
+getPopular();
+
+
+
+function toggleTheme() {
+    const button = document.querySelector('#startanimation');
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    html.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+    button.innerHTML = button.innerHTML === 'dark theme' ? 'light theme' : 'dark theme';
+    sessionStorage.setItem('theme', html.getAttribute('data-theme'));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = sessionStorage.getItem('theme') || 'light'; // Définit 'light' comme valeur par défaut si rien n'est trouvé
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // Mettre à jour le texte du bouton lors du chargement
+    document.querySelector('#startanimation').textContent = `${savedTheme} theme`;
+});
