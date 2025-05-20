@@ -11,17 +11,28 @@ async function getActorMovies(id) {
     const data = await fetch(`https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=${apiKey}&language=fr-FR`)
     const movies = await data.json();
     setMoviesOverview(movies.cast)
-    console.log(movies);
 }
 
 function setMoviesOverview(movies){
-    article = document.createElement("article");
     movies.sort((a,b) => new Date(b.release_date) - new Date(a.release_date));
+    //console.log(movies);
     movies.forEach((element) => {
+        article = document.createElement("article");
+        console.log(element);
         article.innerHTML = `
-        //TODO
+        <h2>${getYear(element.release_date || element.first_air_date)}</h2>
+        <input type="checkbox"></input>
+        <h3>${element.title || element.name}</h3>
+        <h4>en tant que ${element.character}</h4> 
         `
+        article.classList.add(getYear(element.release_date));
+        document.querySelector("#projects").appendChild(article);
     });
+}
+
+function getYear(yearString){
+    let year = new Date(yearString);
+    return year.getFullYear();
 }
 
 function setPersonnalInfo(actor){
