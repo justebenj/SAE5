@@ -143,7 +143,6 @@ async function getCast(){
     const castNumber = 10;
     const answer = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}&language=fr-FR`);
     const data = await answer.json();
-    console.log(data);
     for (let i = 0; i < castNumber; i++) {
         const element = data.cast[i];
         const article = document.createElement('article');
@@ -152,6 +151,7 @@ async function getCast(){
         <h1>${element.name}</h1>
         <h2>${element.character}</h2>
         `
+        article.classList.add(element.id);
         document.querySelector("#cast").appendChild(article);
     }
 }

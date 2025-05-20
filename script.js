@@ -45,7 +45,6 @@ function recupereInfoFilms (media) {
     <img src="https://image.tmdb.org/t/p/w780/${backdrop_path}" onerror="this.src='Img/notfound.jpg';this.id='errorimg';" class="movie_img">
     </a>
     <p hidden=true>Description : ${overview} </p>
-    <blockquote> Date de parution : ${release_date}</p>
     `;
     return movieCard;
 }
@@ -241,7 +240,23 @@ document.body.addEventListener('mouseover', (e) => {
 
 getPopular();
 
-
+document.addEventListener("keypress", function(event){
+    if (event.ctrlKey) {
+        if (event.keyCode == 13) {
+            const recherche = document.querySelector('#search').value;
+            const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${recherche}`;
+            let items = document.querySelectorAll('.movie_item')
+            if (items){
+                items.forEach(element => element.remove());
+            }
+            let wrap = document.querySelector("#pureWrap");
+            if (wrap) {document.querySelector("#pureWrap").remove()};
+            let poster = document.querySelector("#popular");
+            if (poster) {document.querySelector("#popular").remove()};
+            recupereFilms(apiUrl);
+        }
+    }
+});
 
 function toggleTheme() {
     const button = document.querySelector('#startanimation');

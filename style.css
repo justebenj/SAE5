@@ -35,7 +35,7 @@
     --color-field: #c9c9c9;
     --color-button: #d5d5d5;
     --color-header: rgba(3, 37, 65);
-    --banner-url:url(Img/bRunner_upscayl_4x_high-fidelity-4x.png);
+    --banner-url:url(Img/bRunner.png);
     --banner-pos: center 55%;
 }
 
@@ -223,6 +223,27 @@ header button {
 #pureWrap button:hover {
     transform: scale(120%);
     cursor: pointer;
+}
+
+#pureWrap select {
+    font-family: 'Generis';
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 1vh;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    background: linear-gradient(145deg,#ad448d, #4facfe);
+    color: white;
+}
+
+#pureWrap select:hover{
+    background: linear-gradient(145deg, #f7971e, #ffd200);
+    cursor: pointer;
+    transform: scale(110%);
+}
+
+#pureWrap select option {
+    color: #4a00e0;
 }
 
 #caca {

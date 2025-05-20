@@ -161,6 +161,7 @@ article h5 {
     width: 10%;
     height: auto;
     border: 1px solid gray;
+    transition: all 0.3s ease;
 }
 
 #cast article img {
@@ -189,4 +190,9 @@ article h5 {
     justify-content: start;
     margin-top: 2%;
     margin-left: 5%;
+}
+
+#cast article:hover{
+    transform: scale(110%);
+    cursor: pointer;
 }
