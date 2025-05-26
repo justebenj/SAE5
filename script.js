@@ -201,7 +201,9 @@ async function getPopular(){
         let date = element.release_date;
         date = date.replace(/-/g, "/");
         article.innerHTML = `
+        <a href="movie.html?id=${element.id}">
         <img class="pos${index}" src="https://image.tmdb.org/t/p/w780/${element.poster_path}">
+        </a>
         <h1>${element.title}</h1>
         <h2>${date}</h2>
         `;
@@ -259,18 +261,37 @@ document.addEventListener("keypress", function(event){
 });
 
 function toggleTheme() {
-    const button = document.querySelector('#startanimation');
     const html = document.documentElement;
     const current = html.getAttribute('data-theme');
     html.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
-    button.innerHTML = button.innerHTML === 'dark theme' ? 'light theme' : 'dark theme';
     sessionStorage.setItem('theme', html.getAttribute('data-theme'));
 }
+
+document.querySelectorAll("header img").forEach(element =>{
+    element.addEventListener('click', (event =>{
+        if (event.target.id == "sun"){
+            toggleTheme();
+            document.querySelector("#sun").classList.add("hidden");
+            document.querySelector("#moon").classList.remove("hidden");
+        }
+        else {
+            toggleTheme();
+            document.querySelector("#moon").classList.add("hidden");
+            document.querySelector("#sun").classList.remove("hidden");
+        }
+    }));
+});
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const savedTheme = sessionStorage.getItem('theme') || 'light'; // Définit 'light' comme valeur par défaut si rien n'est trouvé
     document.documentElement.setAttribute('data-theme', savedTheme);
-
-    // Mettre à jour le texte du bouton lors du chargement
-    document.querySelector('#startanimation').textContent = `${savedTheme} theme`;
+    if (savedTheme == "light") {
+        document.querySelector("#moon").classList.add("hidden");
+        document.querySelector("#sun").classList.remove("hidden");
+    }
+    else {
+        document.querySelector("#sun").classList.add("hidden");
+        document.querySelector("#moon").classList.remove("hidden");
+    }
 });

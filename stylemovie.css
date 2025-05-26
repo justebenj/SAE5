@@ -20,21 +20,46 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
-}
-
-header h1 {
     font-family: 'RotundaBold';
     font-weight: bold;
     font-size: 3rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    height: 8vh;
+}
+
+header h1 {
+    font-size: 3rem;
+}
+
+header img {
+    height: 6vh;
+    transition: all 0.3s ease;
+}
+
+header img:hover {
+    cursor: pointer;
+    transform: scale(110%);
+}
+
+.hidden {
+    display: none;
+    transition: all 0.3s ease;
 }
 
 header a {
     text-decoration: none;  /* Enlève le souligné par défaut */
     border: none;
-    font-family: 'RotundaBold';
-    color: white;
-    font-weight: bold;
-    font-size: 3rem;
+    color: var(--color-header);
+}
+
+header button {
+    background: none;      /* Enlève l'arrière-plan */
+    border: none;          /* Enlève la bordure */
+    color: inherit;        /* Hérite la couleur du texte parent */
+    padding: 0;            /* Enlève le padding */
+    font: inherit;         /* Hérite la police du parent */
+    text-decoration: none;
+    font-size: 2rem;
 }
 
 main {
@@ -195,4 +220,9 @@ article h5 {
 #cast article:hover{
     transform: scale(110%);
     cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
 }

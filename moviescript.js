@@ -133,7 +133,7 @@ async function infoSup() {
     <h1><span id="bold">${data.title}</span> (${annee.getFullYear()})</h1>
     <h2>${date} · (${data.origin_country}) · ${genres} · ${heures}h ${minutes}m</h2>
     <h3>${data.tagline}</h3>
-    <h4><span id='sLigne'>Resume</span>${data.overview}</h4>
+    <h4><span id='sLigne'>Résumé</span>${data.overview}</h4>
     <h5><span id='sLigne'>${data2.crew[0].name}</span>${data2.crew[0].job}</h5>
     `
     document.querySelector('#infoSup').appendChild(infos);
@@ -147,9 +147,11 @@ async function getCast(){
         const element = data.cast[i];
         const article = document.createElement('article');
         article.innerHTML = `
+        <a href="actor.html?id=${element.id}">
         <img src="https://image.tmdb.org/t/p/w780/${element.profile_path}">
         <h1>${element.name}</h1>
         <h2>${element.character}</h2>
+        </a>
         `
         article.classList.add(element.id);
         document.querySelector("#cast").appendChild(article);

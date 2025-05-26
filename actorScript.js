@@ -1,5 +1,9 @@
 const apiKey = "d2ce126fbc7fe822d2ea9332ea12a63a";
 
+const params = new URLSearchParams(window.location.search);
+const idMovie = params.get("id");
+const actorId=getId();
+
 async function getActor(id) {
     const data = await fetch(`https://api.themoviedb.org/3/person/${id}?api_key=${apiKey}&language=fr-FR`);
     const actor = await data.json();
@@ -8,25 +12,62 @@ async function getActor(id) {
 }
 
 async function getActorMovies(id) {
-    const data = await fetch(`https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=${apiKey}&language=fr-FR`)
+    const data = await fetch(`https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${apiKey}&language=fr-FR`)
     const movies = await data.json();
     setMoviesOverview(movies.cast)
+    getPopular(movies);
+}
+
+let postersPop = [];
+let isPos = 0;
+
+function getPopular(movies){
+    let popularMovies = movies.cast
+    .filter(movie => parseFloat(movie.vote_count) >= 200)
+    .sort((a,b) => parseFloat(b.vote_average) - parseFloat(a.vote_average));
+    if (popularMovies.length < 4) {
+        popularMovies = movies.cast
+        .sort((a,b) => parseFloat(b.vote_average) - parseFloat(a.vote_average));
+    }
+    for (let i = 0; i < 4; i++) {
+        const element = popularMovies[i];
+        const article = document.createElement("article");
+        let date = element.release_date;
+        date = date.replace(/-/g, "/");
+        article.innerHTML = `
+        <a href="movie.html?id=${element.id}">
+        <img class="pos${i}" src="https://image.tmdb.org/t/p/w780/${element.poster_path}"></a>
+        <h1>${element.title}</h1>
+        <h2>${date}</h2>
+        `;
+        document.querySelector("#movPop").appendChild(article);
+        postersPop.push("https://image.tmdb.org/t/p/original/" + element.backdrop_path);
+    }
+    document.documentElement.style.setProperty('--banner-url2', `url(${postersPop[0]})`);
+    pos0 = document.querySelector('#pos0');
 }
 
 function setMoviesOverview(movies){
-    movies.sort((a,b) => new Date(b.release_date) - new Date(a.release_date));
+    movies.sort((a,b) => new Date(b.release_date || b.first_air_date || 0) - new Date(a.release_date || a.first_air_date || 0));
+    let visitedYear = new Set();
     //console.log(movies);
     movies.forEach((element) => {
+        let date = new Date(element.release_date || element.first_air_date || 0)
+        if (!visitedYear.has(date.getFullYear())){
+            let section = document.createElement("section");
+            section.id = "temp" + date.getFullYear();
+            section.classList.add("dates");
+            document.querySelector("#projects").appendChild(section);
+            visitedYear.add(date.getFullYear());
+        }
         article = document.createElement("article");
-        console.log(element);
         article.innerHTML = `
         <h2>${getYear(element.release_date || element.first_air_date)}</h2>
-        <input type="checkbox"></input>
         <h3>${element.title || element.name}</h3>
-        <h4>en tant que ${element.character}</h4> 
+        <h4>incarnant ${element.character}</h4>
         `
-        article.classList.add(getYear(element.release_date));
-        document.querySelector("#projects").appendChild(article);
+        article.classList.add(getYear(element.release_date || element.first_air_date));
+        document.querySelector(`#temp${date.getFullYear()}`).appendChild(article);
     });
 }
 
@@ -39,9 +80,15 @@ function setPersonnalInfo(actor){
     document.querySelector("#leftOverview img").src = `https://image.tmdb.org/t/p/w780/${actor.profile_path}`;
     document.querySelector("#known div").innerHTML = `${actor.known_for_department}`;
     document.querySelector("#gender div").innerHTML = getSexe(actor.gender);
-    document.querySelector("#birthday div").innerHTML = `${actor.birthday}`; //TODO
+    document.querySelector("#birthday div").innerHTML = `${actor.birthday} ` + '(' + ageActor(actor.birthday) + ')';
     document.querySelector("#birthplace div").innerHTML = `${actor.place_of_birth}`;
     getKnownAs(actor.also_known_as);
+    ageActor(new Date(actor.birthday));
+}
+
+function ageActor(birthday){
+    var years = new Date(new Date() - new Date(birthday)).getFullYear() - 1970;
+    return years;
 }
 
 function mainOverview(actor){
@@ -63,6 +110,18 @@ function getSexe(id){
     }
 }
 
+function getId(){
+    const params = new URLSearchParams(window.location.search);
+    const idMovie = params.get("id");
+
+    if (idMovie) {
+        console.log("ID récupéré :", idMovie);
+        return idMovie;
+    } else {
+        console.error("Aucun ID trouvé dans l'URL");
+    }
+}
+
 function getKnownAs(array){
     array.forEach(element => {
         let name = document.createElement("div");
@@ -71,5 +130,28 @@ function getKnownAs(array){
     });
 }
 
-getActor(85);
-getActorMovies(85);
+document.body.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('pos0')) {
+        document.documentElement.style.setProperty('--banner-url2', `url(${postersPop[0]})`);
+    }
+});
+document.body.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('pos1')) {
+        document.documentElement.style.setProperty('--banner-url2', `url(${postersPop[1]})`);
+    }
+});
+
+document.body.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('pos2')) {
+        document.documentElement.style.setProperty('--banner-url2', `url(${postersPop[2]})`);
+    }
+});
+
+document.body.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('pos3')) {
+        document.documentElement.style.setProperty('--banner-url2', `url(${postersPop[3]})`);
+    }
+});
+
+getActor(actorId);
+getActorMovies(actorId);

@@ -32,11 +32,12 @@
 [data-theme='light'] {
     --color-bg: #ffffff;
     --color-fg: #000000;
-    --color-field: #c9c9c9;
+    --color-field: #f0f2f5;
     --color-button: #d5d5d5;
-    --color-header: rgba(3, 37, 65);
+    --color-header: #d27341;
     --banner-url:url(Img/bRunner.png);
     --banner-pos: center 55%;
+    --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 [data-theme='dark'] {
@@ -44,9 +45,10 @@
     --color-fg: #ffffff;
     --color-field: #474747;
     --color-button: #555555;
-    --color-header: rgba(20, 10, 5);
+    --color-header: #ffffff;
     --banner-url:url(Img/brunner2_upscayl_4x_high-fidelity-4x.png);
     --banner-pos: center 20%;
+    --shadow: 0 8px 100px rgba(255, 255, 255, 0.25);
 }
 
 
@@ -63,24 +65,41 @@ main {
 
 
 header {
-    background-color: var(--color-header);
-    color: white;
+    background-color: var(--color-bg);
+    color: var(--color-header);
     display: flex;
     justify-content: space-around;
     align-items: center;
     font-family: 'RotundaBold';
     font-weight: bold;
     font-size: 3rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    height: 8vh;
 }
 
 header h1 {
     font-size: 3rem;
 }
 
+header img {
+    height: 6vh;
+    transition: all 0.3s ease;
+}
+
+header img:hover {
+    cursor: pointer;
+    transform: scale(110%);
+}
+
+.hidden {
+    display: none;
+    transition: all 0.3s ease;
+}
+
 header a {
     text-decoration: none;  /* Enlève le souligné par défaut */
     border: none;
-    color: white;
+    color: var(--color-header);
 }
 
 header button {
@@ -172,19 +191,18 @@ header button {
     padding-left: 5px;
 }
 
-
 #banner {
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
-    background-image: var(--banner-url); /* change avec le bon chemin */
-    background-size: cover;    /* adapte l’image à la div */
-    background-position: var(--banner-pos); /* centre l’image */
-    z-index: 0;  /* arrière-plan */
-    opacity: 1; /* optionnel : pour assombrir un peu */
-  }
+    background-image: var(--banner-url);
+    background-size: cover;
+    background-position: var(--banner-pos);
+    z-index: 0; 
+    opacity: 1;
+}
 
 #pureWrap {
     font-family: 'RotundaBold';
@@ -192,12 +210,13 @@ header button {
     width: 30%;
     justify-content:space-around;
     align-items: center;
-    background-color: var(--color-field);
+    background-color: var(--color-bg);
     flex-direction: column;
     align-self: center;
     gap:3vh;
     padding: 3vh;
     border-radius: 1vh;
+    box-shadow: var(--shadow);
 }
 
 #pureWrap h2 {
@@ -412,6 +431,11 @@ main div{
     justify-items: end;
 }
 
+#popular a {
+    color: white;
+    text-decoration: none;
+}
+
 #background {
     position: absolute;
     left: 0;
@@ -437,6 +461,7 @@ main div{
 
 #background h1 {
     font-family: 'RotundaBold';
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #movPop {

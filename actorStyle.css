@@ -1,0 +1,234 @@
+@font-face {
+    font-family: 'RotundaBold';
+    src: url('fonts/Demo_Fonts/Fontspring-DEMO-6a-rotunda-bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Generis';
+    src: url('fonts/GenerisSansMedium/Generis\ Sans\ W04\ Medium.woff');
+}
+
+:root {
+    --banner-url2:url();
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+main {
+    margin-top: 58vh;
+    margin-left: 15%;
+    display: flex;
+    margin-right: 12%;
+    gap: 2%;
+}
+
+header {
+    background-color: var(--color-bg);
+    color: var(--color-header);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: 'RotundaBold';
+    font-weight: bold;
+    font-size: 3rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    height: 8vh;
+}
+
+header h1 {
+    font-size: 3rem;
+}
+
+header img {
+    height: 6vh;
+    transition: all 0.3s ease;
+}
+
+header img:hover {
+    cursor: pointer;
+    transform: scale(110%);
+}
+
+.hidden {
+    display: none;
+    transition: all 0.3s ease;
+}
+
+header a {
+    text-decoration: none;  /* Enlève le souligné par défaut */
+    border: none;
+    color: var(--color-header);
+}
+
+header button {
+    background: none;      /* Enlève l'arrière-plan */
+    border: none;          /* Enlève la bordure */
+    color: inherit;        /* Hérite la couleur du texte parent */
+    padding: 0;            /* Enlève le padding */
+    font: inherit;         /* Hérite la police du parent */
+    text-decoration: none;
+    font-size: 2rem;
+}
+
+
+#leftOverview {
+    min-width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    font-family: 'Generis';
+    font-weight: light;
+}
+
+#leftOverview img {
+    width: 100%;
+    border-radius: 1vh;
+}
+
+#leftOverview h1,h2{
+    font-weight: bold;
+}
+
+#leftOverview h2 {
+    font-size: 1.3rem;
+}
+
+#mainOverview {
+    min-width: 70%;
+    font-family: 'Generis';
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+#mainOverview p {
+    margin-top: 1vh;
+    white-space: pre-wrap;
+    display: block;
+    font-size: 1rem;
+}
+
+#mainOverview h1 {
+    font-family: 'RotundaBold';
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+#projects {
+    box-shadow: 0px 0px 10px 1px #C1C1C1;
+}
+
+#projects > section{
+    border: 0.5px solid gray;
+    padding-right: 1vw;
+    padding-left: 1.5vw;
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+#projects > section > article {
+    display: flex;
+    gap: 1vw;
+    align-items: center;
+}
+
+#projects > section h2{
+    font-family: 'Generis';
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+#projects > section h3{
+    font-family: 'Generis';
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+#projects > section h4{
+    font-family: 'Generis';
+    font-weight: 300;
+}
+
+#popular {
+    display: flex;
+    justify-items: end;
+}
+
+#popular a {
+    color: white;
+    text-decoration: none;
+}
+
+#background {
+    position: absolute;
+    left: 0;
+    top: 8vh;
+    height: 100%;
+    width: 100%;
+    background-image:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+     var(--banner-url2);
+    background-size: cover;
+    background-position: center top;
+    z-index: 0;
+    opacity: 1;
+    height: 50vh;
+}
+
+#background {
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    align-items: center;
+    color: white;
+}
+
+#background h1 {
+    margin-top: 2vh;
+    font-family: 'RotundaBold';
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#movPop {
+    display: flex;
+    margin-top: -1%;
+}
+
+#background article {
+    width: 20vh;
+    z-index: 1;
+    margin-top: 0;
+    padding: 2vh;
+    padding-left: 4vh;
+    padding-right: 4vh;
+    font-family: 'Generis';
+    font-weight: bolder;
+}
+
+#background article h1 {
+    font-family: 'Generis';
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+#background article h2 {
+    font-family: 'Generis';
+    font-weight: lighter;
+    font-size: 1.2rem;
+}
+
+#background article img {
+    width: 100%;
+    border-radius: 1vh;
+    transition: all 0.3s ease;
+}
+
+#background article img:hover {
+    transform: scale(110%);
+}
