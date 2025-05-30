@@ -181,6 +181,42 @@ async function recupereSimilar() {
     }
 }
 
+function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    html.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+    sessionStorage.setItem('theme', html.getAttribute('data-theme'));
+}
+
+document.querySelectorAll("header img").forEach(element =>{
+    element.addEventListener('click', (event =>{
+        if (event.target.id == "sun"){
+            toggleTheme();
+            document.querySelector("#sun").classList.add("hidden");
+            document.querySelector("#moon").classList.remove("hidden");
+        }
+        else {
+            toggleTheme();
+            document.querySelector("#moon").classList.add("hidden");
+            document.querySelector("#sun").classList.remove("hidden");
+        }
+    }));
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = sessionStorage.getItem('theme') || 'light'; // Définit 'light' comme valeur par défaut si rien n'est trouvé
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    if (savedTheme == "light") {
+        document.querySelector("#moon").classList.add("hidden");
+        document.querySelector("#sun").classList.remove("hidden");
+    }
+    else {
+        document.querySelector("#sun").classList.add("hidden");
+        document.querySelector("#moon").classList.remove("hidden");
+    }
+});
+
 
 recupereBanniere();
 infoSup();

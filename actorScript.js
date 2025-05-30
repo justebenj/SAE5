@@ -42,6 +42,7 @@ function getPopular(movies){
         `;
         document.querySelector("#movPop").appendChild(article);
         postersPop.push("https://image.tmdb.org/t/p/original/" + element.backdrop_path);
+        preloadImage(`https://image.tmdb.org/t/p/w780/${element.poster_path}`);
     }
     document.documentElement.style.setProperty('--banner-url2', `url(${postersPop[0]})`);
     pos0 = document.querySelector('#pos0');
@@ -50,7 +51,6 @@ function getPopular(movies){
 function setMoviesOverview(movies){
     movies.sort((a,b) => new Date(b.release_date || b.first_air_date || 0) - new Date(a.release_date || a.first_air_date || 0));
     let visitedYear = new Set();
-    //console.log(movies);
     movies.forEach((element) => {
         let date = new Date(element.release_date || element.first_air_date || 0)
         if (!visitedYear.has(date.getFullYear())){
@@ -63,7 +63,8 @@ function setMoviesOverview(movies){
         article = document.createElement("article");
         article.innerHTML = `
         <h2>${getYear(element.release_date || element.first_air_date)}</h2>
-        <h3>${element.title || element.name}</h3>
+        <a href="movie.html?id=${element.id}">
+        <h3>${element.title || element.name}</h3></a>
         <h4>incarnant ${element.character}</h4>
         `
         article.classList.add(getYear(element.release_date || element.first_air_date));
@@ -115,7 +116,6 @@ function getId(){
     const idMovie = params.get("id");
 
     if (idMovie) {
-        console.log("ID récupéré :", idMovie);
         return idMovie;
     } else {
         console.error("Aucun ID trouvé dans l'URL");
@@ -128,6 +128,18 @@ function getKnownAs(array){
         name.innerHTML = element;
         document.querySelector("#knownAs").appendChild(name);
     });
+}
+
+const preloadImage = (url) => {
+    const img = new Image();
+    img.src = url;
+};
+
+function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    html.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+    sessionStorage.setItem('theme', html.getAttribute('data-theme'));
 }
 
 document.body.addEventListener('mouseover', (e) => {
@@ -155,3 +167,41 @@ document.body.addEventListener('mouseover', (e) => {
 
 getActor(actorId);
 getActorMovies(actorId);
+
+document.querySelectorAll("header img").forEach(element =>{
+    element.addEventListener('click', (event =>{
+        if (event.target.id == "sun"){
+            toggleTheme();
+            document.querySelector("#sun").classList.add("hidden");
+            document.querySelector("#moon").classList.remove("hidden");
+        }
+        else {
+            toggleTheme();
+            document.querySelector("#moon").classList.add("hidden");
+            document.querySelector("#sun").classList.remove("hidden");
+        }
+    }));
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = sessionStorage.getItem('theme') || 'light'; // Définit 'light' comme valeur par défaut si rien n'est trouvé
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    if (savedTheme == "light") {
+        document.querySelector("#moon").classList.add("hidden");
+        document.querySelector("#sun").classList.remove("hidden");
+    }
+    else {
+        document.querySelector("#sun").classList.add("hidden");
+        document.querySelector("#moon").classList.remove("hidden");
+    }
+});
+
+const text = document.getElementById("text");
+const toggle = document.getElementById("toggle");
+
+toggle.addEventListener("click", function (e) {
+  e.preventDefault();
+  text.classList.toggle("collapsed");
+  text.classList.toggle("expanded");
+  toggle.textContent = text.classList.contains("collapsed") ? "Afficher plus" : "Afficher moins";
+});

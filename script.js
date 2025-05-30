@@ -207,11 +207,11 @@ async function getPopular(){
         <h1>${element.title}</h1>
         <h2>${date}</h2>
         `;
+        preloadImage(`https://image.tmdb.org/t/p/w780/${element.poster_path}`);
         document.querySelector('#movPop').appendChild(article);
         postersPop.push("https://image.tmdb.org/t/p/original/" + element.backdrop_path);
     });
     isPos = 1;
-    console.log(postersPop);
     document.documentElement.style.setProperty('--banner-url2', `url(${postersPop[0]})`);
     pos0 = document.querySelector('#pos0');
 }
@@ -259,6 +259,11 @@ document.addEventListener("keypress", function(event){
         }
     }
 });
+
+const preloadImage = (url) => {
+    const img = new Image();
+    img.src = url;
+};
 
 function toggleTheme() {
     const html = document.documentElement;

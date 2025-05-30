@@ -12,10 +12,38 @@
     --banner-url2:url();
 }
 
+[data-theme='light'] {
+    --color-bg: #ffffff;
+    --color-fg: #000000;
+    --color-field: #f0f2f5;
+    --color-button: #d5d5d5;
+    --color-header: #d27341;
+    --banner-url:url(Img/bRunner.png);
+    --banner-pos: center 55%;
+    --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme='dark'] {
+    --color-bg: #2e2e2e;
+    --color-fg: #ffffff;
+    --color-field: #474747;
+    --color-button: #555555;
+    --color-header: #ffffff;
+    --banner-url:url(Img/brunner2_upscayl_4x_high-fidelity-4x.png);
+    --banner-pos: center 20%;
+    --shadow: 0 8px 100px rgba(255, 255, 255, 0.25);
+}
+
 *{
     margin: 0;
     padding: 0;
     border: 0;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    transition: background-color 0.5s ease, color 0.3s ease;
 }
 
 main {
@@ -23,7 +51,7 @@ main {
     margin-left: 15%;
     display: flex;
     margin-right: 12%;
-    gap: 2%;
+    gap: 2%;;
 }
 
 header {
@@ -120,6 +148,7 @@ header button {
 
 #projects {
     box-shadow: 0px 0px 10px 1px #C1C1C1;
+    margin-top: 5vh;
 }
 
 #projects > section{
@@ -232,3 +261,20 @@ header button {
 #background article img:hover {
     transform: scale(110%);
 }
+
+a {
+    all: unset;
+    cursor: pointer;
+}
+
+#text.collapsed {
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* Nombre de lignes visibles */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  #text.expanded {
+    display: block;
+  }
