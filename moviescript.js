@@ -49,20 +49,18 @@ async function recupereBanniere() {
 function recupereBanniereFilms (media) {
     const { file_path } = media;
 
-    const imageUrl = file_path ? `https://image.tmdb.org/t/p/w780/${file_path}` : 'Img/notfound.jpg';
-
-
-    /*const bannerCard = document.createElement("article");
-    bannerCard.classList.add("movie_banner_item")
-
+    const bannerCard = document.createElement('article');
     bannerCard.innerHTML = `
-    <img src="https://image.tmdb.org/t/p/w780/${file_path}" onerror="this.src='Img/notfound.jpg';this.id='errorimg';" class="movie_img">
+    <a class="imgLink" href="https://brocoflix.com/pages/info?id=${idMovie}&type=movie"><img class="movie_img" src="https://image.tmdb.org/t/p/w780/${file_path}"></a>
+    <img class="playButton hidden" src="Img/play-button.png">
     `;
-    return bannerCard;*/
-
-    const bannerCard = document.createElement('img');
-    bannerCard.classList.add("movie_img")
-    bannerCard.src = `https://image.tmdb.org/t/p/w780/${file_path}`
+    bannerCard.id = "bannerCard";
+    bannerCard.addEventListener("mouseover", () => {
+        document.querySelector(".playButton").classList.remove("hidden");
+    });
+    bannerCard.addEventListener("mouseout", () => {
+        document.querySelector(".playButton").classList.add("hidden");
+    });
     return bannerCard;
 }
 
@@ -108,8 +106,7 @@ async function getImage() {
     const similarCard = document.createElement("article");
     similarCard.classList.add("images");
     similarCard.innerHTML = `
-    <img id="imageBackground" src="https://image.tmdb.org/t/p/original/${images.backdrops[0].file_path}">
-    `
+    <img id="imageBackground" src="https://image.tmdb.org/t/p/original/${images.backdrops[0].file_path}">`;
     document.getElementById("movies").append(similarCard);
 }
 
@@ -216,7 +213,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#moon").classList.remove("hidden");
     }
 });
-
 
 recupereBanniere();
 infoSup();
