@@ -77,7 +77,8 @@ function getYear(yearString){
     return year.getFullYear();
 }
 
-function setPersonnalInfo(actor){
+function setPersonnalInfo(actor) {
+    document.querySelector("#background h1").textContent = `Films cultes de ${actor.name}`;
     document.querySelector("#leftOverview img").src = `https://image.tmdb.org/t/p/w780/${actor.profile_path}`;
     document.querySelector("#known div").innerHTML = `${actor.known_for_department}`;
     document.querySelector("#gender div").innerHTML = getSexe(actor.gender);

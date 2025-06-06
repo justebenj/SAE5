@@ -3,6 +3,8 @@ const NOMBRERECOMMANDATION = 5;
 
 const params = new URLSearchParams(window.location.search);
 const idMovie = params.get("id");
+
+
 function getId(){
     const params = new URLSearchParams(window.location.search);
     const idMovie = params.get("id");
@@ -26,16 +28,12 @@ async function recupereBanniere() {
     try {
         const response = await fetch(apiUrl2);
         const data = await response.json();
-
-        //console.log("Données récupérées :", data);
-
         if (!data.posters || data.posters.length === 0) {
             throw new Error("Aucun poster trouvé dans la réponse de l'API.");
         }
         for (let i = 0; i < data.posters.length; i++) {
             if (i == 0){
                 const bannerCard = recupereBanniereFilms(data.posters[i]);
-                //console.log("Carte créée pour le média :", data.posters[i]);
                 moviesContainer.prepend(bannerCard);
                 document.createElement("ul");
             }
